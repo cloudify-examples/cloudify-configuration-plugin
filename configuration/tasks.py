@@ -39,21 +39,35 @@ def load_configuration(parameters, **kwargs):
 def load_configuration_to_runtime_properties(source_config, **kwargs):
     old_params = ctx.source.instance.runtime_properties.get('params', {})
 
+    #privent recursion by removing old_params from old_params
     old_params['old_params'] = {}
 
+    # retrive relevant parameters list from node properties
     params_list = ctx.source.node.properties['params_list']
+
+    # populate params from main configuration with only relevant values
     params = {k:v for k, v in source_config.iteritems() if k in params_list}
 
+    # overide params with HARD coded node params
     params.update(ctx.source.node.properties['params'])
 
-    params['old_params'] = old_params
+    # create in params old_params key with empty dict so it wll match to the old_params
+    params['old_params'] = {}
 
+    # find changed params between old params and populated params
     diff_params = [k for k,v in params.iteritems() if v != old_params.get(k)]
 
+    # populate the old params into params
+    params['old_params'] = old_params
+
+    # populate diff_params inot params
     params['diff_params'] = diff_params
 
-    ctx.logger.info("Show old params: {} Show created params: {} Show updated params: {}".format(old_params, params, diff_params))
+    ctx.logger.info("Show params: {}" . format(params) )
+    ctx.logger.info("Show old params: {}" . format(old_params) )
+    ctx.logger.info("Show diff params: {}" . format(diff_params) )
 
+    #update params to runtime properties
     ctx.source.instance.runtime_properties['params'] = params
 
 
