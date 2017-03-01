@@ -24,9 +24,9 @@ import json
 
 def load_configuration(parameters, **kwargs):
     #load params
-    if isinstance(parameters, dict)
+    if isinstance(parameters, dict):
         params = parameters
-    else
+    else:
         params = json.loads(parameters)
 
     #get previous params
