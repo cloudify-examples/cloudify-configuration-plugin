@@ -1,5 +1,5 @@
 plugins:
-  netconf:
+  configuration_plugin:
     executor: central_deployment_agent
     source: https://github.com/Cloudify-PS/cloudify-configuration-plugin/archive/master.zip
     package_name: cloudify-configuration-plugin
