@@ -96,9 +96,9 @@ def update(params, configuration_node_type, node_types_to_update, **kwargs):
     for node in ctx.nodes:
         if node_types.intersection(set(node.type_hierarchy)):
             for instance in node.instances:
-                if len(instance.runtime_properties['params']['diff_params']) > 0:
-                    operation_task = instance.execute_operation('cloudify.interfaces.lifecycle.update')
-                    sequence.add(operation_task)
+                instance.id
+                operation_task = instance.execute_operation('cloudify.interfaces.lifecycle.update')
+                sequence.add(operation_task)
 
 
     return graph.execute()
