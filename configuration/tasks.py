@@ -104,6 +104,7 @@ def update(params, configuration_node_type, node_types_to_update, **kwargs):
             for instance in node.instances:
                 currentinstance = restcli.node_instances.get(instance.id)
                 if len( currentinstance.runtime_properties['params']['diff_params'] ) > 0 :
+                    ctx.logger.info("Updating instance ID: {} with diff_params {} " . foramt(instance.id , currentinstance.runtime_properties['params']['diff_params'] ) )
                     operation_task = instance.execute_operation('cloudify.interfaces.lifecycle.update')
                     sequence.add(operation_task)
 
