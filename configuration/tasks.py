@@ -99,6 +99,10 @@ def update(params, configuration_node_type, node_types_to_update, **kwargs):
                     operation_task = relationship.execute_target_operation('cloudify.interfaces.relationship_lifecycle.preconfigure')
                     sequence.add(operation_task)
 
+    graph.execute()
+    
+    sequence = graph.sequence()
+
     for node in ctx.nodes:
         if node_types.intersection(set(node.type_hierarchy)):
             for instance in node.instances:
