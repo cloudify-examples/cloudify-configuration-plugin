@@ -20,6 +20,9 @@ from cloudify.workflows import ctx as workflow_ctx
 from cloudify.state import ctx_parameters as inputs
 from cloudify.decorators import workflow
 
+##
+from cloudify import manager
+
 import json
 
 def load_configuration(parameters, **kwargs):
@@ -75,6 +78,9 @@ def load_configuration_to_runtime_properties(source_config, **kwargs):
 def update(params, configuration_node_type, node_types_to_update, **kwargs):
     ctx = workflow_ctx
     ctx.logger.info("Starting Update Workflow")
+
+    restcli = manager.get_rest_client()
+
     node_types = set(node_types_to_update)
     ## update interface on the config node
     graph = ctx.graph_mode()
@@ -96,8 +102,10 @@ def update(params, configuration_node_type, node_types_to_update, **kwargs):
     for node in ctx.nodes:
         if node_types.intersection(set(node.type_hierarchy)):
             for instance in node.instances:
-                operation_task = instance.execute_operation('cloudify.interfaces.lifecycle.update')
-                sequence.add(operation_task)
+                currentinstance = restcli.node_instances.get(instance.id)
+                if len( currentinstance.runtime_properties['params']['diff_params'] ) > 0 :
+                    operation_task = instance.execute_operation('cloudify.interfaces.lifecycle.update')
+                    sequence.add(operation_task)
 
 
     return graph.execute()
