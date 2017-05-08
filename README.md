@@ -1,6 +1,7 @@
 # cloudify-configuration-plugin
 
 ##Configuration plugin manual for VCPE solution
+---
 
 ##Preparation
 Create a list of parameter that take part in you reployment,
