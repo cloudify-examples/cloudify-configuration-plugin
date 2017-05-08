@@ -1,12 +1,12 @@
 # cloudify-configuration-plugin
 
-#Configuration plugin manual for VCPE solution
+##Configuration plugin manual for VCPE solution
 
-#Preparation
+##Preparation
 Create a list of parameter that take part in you reployment,
 Map between the parameters you have listed and nodes you have, Several parameter are going to be used by Almost every node and others are going to just be used by 2 or 3 nodes.
 
-#Writing the Blueprint
+##Writing the Blueprint
 
 #Create main input
 This input will hole initial parameter for the deployment.
