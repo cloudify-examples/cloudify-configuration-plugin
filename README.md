@@ -13,13 +13,14 @@ Map between the parameters you have listed and nodes you have, Several parameter
 This input will hole initial parameter for the deployment.
 The input can be either in Dict  or in JSON Formats.
 ### Example
+```
   parameters_json:
     default:
       Private: true
       Voice: true
       Public: true
       CPESerialNumber: CV3816AF0569
-
+```
 #Crate configuration holder node
 configuration holder will hold the entire configuration in it’s runtime properties
 It will also be used as a target in relationships with nodes consuming the configuration
